@@ -4,69 +4,62 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        System.out.println(sumDigits(434));
-        System.out.println(count7(60000000));
-        System.out.println(powerN(2,10));
-        System.out.println(countX("nnxnnx"));
+        System.out.println(numPins(13));
+        System.out.println(bunnyEars(20));
+        System.out.println(bunnyEars2(20));
+        System.out.println(count7(7373));
     }
 
-    private static int  count7(int i) {
-        int count;
-        if (i == 0 ){
-            count = 0;
-        } else{
-            int rightDigit = i % 10;
-            int rest = i / 10;
-            if (rightDigit == 7 ){
-                count = 1 + count7(rest);
+    private static int count7(int i) {
+        int num;
+        if (i < 7) {
+            return 0;
+        }
+        else
+        { if ( 7 == i % 10) {
+                num = 1;
             } else {
-                count = 0 + count7(rest);
+                num = 0;
             }
         }
-
-        return count;
+        return num + count7(i / 10);
     }
 
-    // non-negative number
-    public static int sumDigits(int n ){
-        int sum;
-        if (n == 0){
-            sum  = 0;
-        } else {
-            int rightDigit = n % 10;
-            int rest = n / 10;
-            sum = rightDigit + sumDigits(rest);
+
+
+    public static int bunnyEars (int bunnies){
+        int totalEars;
+        if (bunnies == 0) {
+            totalEars = 0;
+        }else {
+            totalEars = 2 + bunnyEars(bunnies- 1);
         }
 
-        return sum;
-    }
-    // Preconditon: base > 0 and exp >= 0
-    public static int powerN (int base, int exp){
-        int product;
-
-        if (exp == 0 ){
-            product = 1;
-        } else {
-            product = base * powerN(base, exp - 1);
-        }
-        return product;
+        return totalEars;
     }
 
-    public static int countX(String str){
-        int count;
-
-        if (str.isEmpty()){
-            count = 0;
-        } else {
-            if (str.charAt(0) == 'x') {
-            count = 1  + countX(str.substring(1));
-            } else {
-                count = 0 + countX(str.substring(1));
-            }
+    public static int bunnyEars2 (int bunnies){
+        int totalEars;
+        if (bunnies == 0) {
+            totalEars = 0;
+        }else  if (bunnies % 2  == 1 ) { // odd case
+            totalEars = 2 + bunnyEars2( bunnies - 1);
+        } else { // even case
+            totalEars = 3 + bunnyEars2(bunnies - 1 );
         }
 
-
-        return count;
+        return totalEars;
     }
 
+
+
+    public static int  numPins (int rows ){
+        int totalPins;
+        if (rows == 0 ){ // the base case.
+            totalPins = 0;
+        } else {
+            totalPins = rows + numPins(rows - 1);
+        }
+        return totalPins;
+    }
 }
